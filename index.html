@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News Wire — Live World, Business, Tech &amp; India News, Updated Hourly</title>
+<meta name="description" content="News Wire is a live, hourly-refreshed news dashboard covering world, politics, business, technology, science, health, sports and more — plus a dedicated India current-affairs feed. Free, fast, no sign-up.">
+<meta name="keywords" content="news, live news, world news, india news, current affairs, business news, technology news, hourly news dashboard">
+<meta name="robots" content="index, follow">
+<meta name="author" content="News Wire">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="News Wire — Live World, Business, Tech & India News, Updated Hourly">
+<meta property="og:description" content="A live, hourly-refreshed news dashboard covering world, politics, business, technology, science, health, sports and more — plus a dedicated India current-affairs feed.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta property="og:site_name" content="News Wire">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="News Wire — Live World, Business, Tech & India News, Updated Hourly">
+<meta name="twitter:description" content="A live, hourly-refreshed news dashboard covering world, politics, business, technology, science, health, sports and more, plus a dedicated India current-affairs feed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "News Wire",
+  "url": "https://REPLACE-WITH-YOUR-DOMAIN/",
+  "description": "A live, hourly-refreshed news dashboard covering world, politics, business, technology, science, health, sports and more, plus a dedicated India current-affairs feed."
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #15151a;
+    --ink-2: #1c1c23;
+    --ink-3: #23232c;
+    --paper: #ede9e1;
+    --paper-dim: #a4a19b;
+    --wire-red: #c4122f;
+    --slate: #6f93a1;
+    --brass: #c79a56;
+    --line: rgba(237,233,225,0.12);
+    --line-strong: rgba(237,233,225,0.22);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',system-ui,sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  button{ font-family:inherit; cursor:pointer; }
+  ::selection{ background:var(--wire-red); color:#fff; }
+
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    padding:28px 36px 18px; border-bottom:1px solid var(--line);
+    gap:20px; flex-wrap:wrap;
+  }
+  .brand-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--wire-red); margin:0 0 6px; font-weight:700;
+  }
+  .brand-name{
+    font-family:'Fraunces',serif; font-weight:900; font-style:italic;
+    font-size:clamp(28px,4vw,42px); margin:0; line-height:1;
+    letter-spacing:-0.01em;
+  }
+  .masthead-right{ display:flex; align-items:center; gap:18px; }
+  .clock-block{ text-align:right; }
+  .clock-label{ font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-dim); }
+  .countdown{ font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; justify-content:flex-end; }
+  .live-dot{ width:8px; height:8px; border-radius:50%; background:var(--wire-red); box-shadow:0 0 0 0 rgba(196,18,47,0.6); animation:pulse 2s infinite; flex-shrink:0; }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(196,18,47,0.55); }
+    70%{ box-shadow:0 0 0 8px rgba(196,18,47,0); }
+    100%{ box-shadow:0 0 0 0 rgba(196,18,47,0); }
+  }
+  .icon-btn{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);
+    background:var(--ink-2); color:var(--paper); display:flex; align-items:center; justify-content:center;
+    font-size:17px; transition:border-color .15s, transform .15s, background .15s;
+  }
+  .icon-btn:hover{ border-color:var(--brass); transform:translateY(-1px); }
+  .icon-btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+
+  /* ---------- Ticker ---------- */
+  .ticker-strip{
+    display:flex; align-items:stretch; background:var(--ink-2);
+    border-bottom:1px solid var(--line); overflow:hidden; height:38px;
+  }
+  .ticker-tag{
+    flex-shrink:0; background:var(--wire-red); color:#fff; font-family:'JetBrains Mono',monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.12em; display:flex; align-items:center;
+    padding:0 14px;
+  }
+  .ticker-viewport{ flex:1; overflow:hidden; position:relative; display:flex; align-items:center; }
+  .ticker-track{
+    display:flex; white-space:nowrap; animation:ticker 45s linear infinite;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--paper-dim);
+    padding-left:100%;
+  }
+  .ticker-track span{ margin-right:48px; }
+  .ticker-track span::after{ content:'•'; margin-left:48px; color:var(--brass); }
+  @keyframes ticker{ from{ transform:translateX(0); } to{ transform:translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; padding-left:16px; } .live-dot{ animation:none; } }
+
+  /* ---------- Controls ---------- */
+  .controls{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:20px 36px 8px; flex-wrap:wrap;
+  }
+  .tabs{ display:flex; gap:6px; align-items:center; overflow-x:auto; padding-bottom:4px; scrollbar-width:thin; }
+  .tab{
+    background:transparent; border:1px solid var(--line-strong); color:var(--paper-dim);
+    padding:8px 16px; border-radius:999px; font-size:12.5px; font-weight:600;
+    letter-spacing:0.03em; white-space:nowrap; transition:all .15s; flex-shrink:0;
+  }
+  .tab:hover{ color:var(--paper); border-color:var(--paper-dim); }
+  .tab.active{ background:var(--slate); border-color:var(--slate); color:#0d1416; }
+  .tab.upsc.active{ background:var(--brass); border-color:var(--brass); color:#1a1408; }
+  .tab-divider{ width:1px; align-self:stretch; background:var(--line-strong); margin:0 6px; flex-shrink:0; }
+  .tab-group-label{
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--brass); white-space:nowrap; flex-shrink:0; padding-right:2px;
+  }
+  .right-controls{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .lang-select{
+    background:var(--ink-2); border:1px solid var(--line-strong); color:var(--paper);
+    padding:9px 12px; border-radius:999px; font-size:12.5px; font-family:'JetBrains Mono',monospace;
+    max-width:170px;
+  }
+  .search-form{ display:flex; align-items:center; gap:8px; }
+  .search-form input{
+    background:var(--ink-2); border:1px solid var(--line-strong); color:var(--paper);
+    padding:9px 14px; border-radius:999px; font-size:13px; width:200px; font-family:'Inter',sans-serif;
+  }
+  .search-form input::placeholder{ color:var(--paper-dim); }
+  .search-form button{
+    background:var(--brass); color:#1a1408; border:none; padding:9px 16px; border-radius:999px;
+    font-size:12.5px; font-weight:700; letter-spacing:0.02em;
+  }
+  .clear-search{ background:transparent; border:1px solid var(--line-strong); color:var(--paper-dim); border-radius:999px; padding:9px 14px; font-size:12.5px; margin-left:10px; }
+
+  /* ---------- Meta row ---------- */
+  .meta-row{
+    display:flex; justify-content:space-between; align-items:center; padding:6px 36px 0;
+    color:var(--paper-dim); font-size:11.5px; flex-wrap:wrap; gap:8px;
+  }
+  .refresh-btn{ background:none; border:none; color:var(--slate); font-weight:600; font-size:11.5px; text-decoration:underline; padding:0; }
+  .upsc-note{
+    margin:8px 36px 0; padding:10px 16px; border:1px dashed var(--line-strong); border-radius:8px;
+    color:var(--paper-dim); font-size:12px; font-style:italic; display:none;
+  }
+  .upsc-note.show{ display:block; }
+
+  /* ---------- Grid ---------- */
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:20px; padding:20px 36px 60px;
+  }
+  .card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; display:flex; flex-direction:column; animation:rise .4s ease both;
+    transition:border-color .15s, transform .15s;
+  }
+  .card:hover{ border-color:var(--line-strong); transform:translateY(-2px); }
+  @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+  .card-image{ width:100%; height:150px; object-fit:cover; display:block; background:var(--ink-3); }
+  .card-image-placeholder{
+    width:100%; height:150px; background:linear-gradient(135deg,var(--ink-3),var(--ink-2));
+    display:flex; align-items:center; justify-content:center; color:var(--line-strong);
+    font-family:'Fraunces',serif; font-size:34px; font-weight:900; font-style:italic;
+  }
+  .card-body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1; }
+  .card-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--slate);
+  }
+  .card-title{ font-family:'Fraunces',serif; font-weight:600; font-size:17px; line-height:1.3; margin:0; }
+  .card-desc{
+    font-size:13px; line-height:1.5; color:var(--paper-dim); margin:0;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .card-footer{
+    margin-top:auto; display:flex; justify-content:space-between; align-items:center;
+    padding-top:8px; border-top:1px solid var(--line); font-size:11.5px; color:var(--paper-dim);
+  }
+  .card-footer .source{ font-weight:600; color:var(--paper); }
+  .card-footer a{ color:var(--brass); font-weight:700; text-decoration:none; }
+  .card-footer a:hover{ text-decoration:underline; }
+
+  /* ---------- States ---------- */
+  .state-box{
+    grid-column:1/-1; text-align:center; padding:70px 24px; color:var(--paper-dim);
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+  }
+  .state-glyph{ font-family:'Fraunces',serif; font-style:italic; font-size:40px; color:var(--line-strong); }
+  .state-title{ font-family:'Fraunces',serif; font-size:20px; color:var(--paper); font-weight:600; }
+  .state-text{ max-width:420px; font-size:13.5px; line-height:1.6; }
+  .primary-btn{
+    background:var(--wire-red); color:#fff; border:none; padding:11px 22px; border-radius:8px;
+    font-size:13px; font-weight:700; letter-spacing:0.02em; margin-top:6px;
+  }
+  .skeleton{ background:linear-gradient(90deg,var(--ink-2) 25%,var(--ink-3) 37%,var(--ink-2) 63%); background-size:400% 100%; animation:shimmer 1.4s ease infinite; }
+  @keyframes shimmer{ 0%{ background-position:100% 0; } 100%{ background-position:0 0; } }
+
+  /* ---------- Settings panel ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(10,10,12,0.55); opacity:0; pointer-events:none;
+    transition:opacity .2s; z-index:40;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+  .settings-panel{
+    position:fixed; top:0; right:0; height:100%; width:380px; max-width:92vw;
+    background:var(--ink-2); border-left:1px solid var(--line-strong); z-index:50;
+    transform:translateX(100%); transition:transform .25s ease; padding:28px 26px;
+    overflow-y:auto;
+  }
+  .settings-panel.open{ transform:translateX(0); }
+  .settings-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+  .settings-header h2{ font-family:'Fraunces',serif; font-size:20px; margin:0; font-weight:600; }
+  .settings-header button{ background:none; border:none; color:var(--paper-dim); font-size:20px; }
+  .field-label{ font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--paper-dim); font-weight:700; margin-bottom:8px; display:block; }
+  .hint{ font-size:12px; color:var(--paper-dim); line-height:1.6; margin:10px 0 20px; }
+  .hint a{ color:var(--slate); font-weight:600; }
+  .divider{ height:1px; background:var(--line); margin:22px 0; }
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--ink-3); border:1px solid var(--line-strong); color:var(--paper);
+    padding:12px 20px; border-radius:8px; font-size:13px; opacity:0; pointer-events:none;
+    transition:all .25s; z-index:60;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width:640px){
+    .masthead, .controls, .meta-row, .grid, .upsc-note{ padding-left:18px; padding-right:18px; }
+    .search-form input{ width:130px; }
+    .lang-select{ max-width:120px; }
+  }
+</style>
+</head>
+<body>
+  <noscript>
+    <div style="max-width:640px;margin:60px auto;padding:24px;font-family:sans-serif;text-align:center;">
+      <h1>News Wire</h1>
+      <p>News Wire is a live, hourly-updated news dashboard covering world, politics, business, technology, science, health, sports, entertainment and India current affairs. Please enable JavaScript to view live headlines.</p>
+    </div>
+  </noscript>
+
+  <header class="masthead">
+    <div>
+      <p class="brand-eyebrow">Hourly Dispatch</p>
+      <h1 class="brand-name">News Wire</h1>
+    </div>
+    <div class="masthead-right">
+      <div class="clock-block">
+        <div class="clock-label">Next update</div>
+        <div class="countdown"><span class="live-dot"></span><span id="countdown-text" class="mono">60:00</span></div>
+      </div>
+      <button class="icon-btn" id="settings-btn" aria-label="Open settings" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <div class="ticker-strip">
+    <div class="ticker-tag">LIVE</div>
+    <div class="ticker-viewport">
+      <div class="ticker-track mono" id="ticker-track">
+        <span>Loading latest headlines&hellip;</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="tabs" id="tabs"></div>
+    <div class="right-controls">
+      <select class="lang-select" id="lang-select" aria-label="Choose language"></select>
+      <form class="search-form" id="search-form">
+        <input type="text" id="search-input" placeholder="Search news&hellip;" aria-label="Search news">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <span id="results-label">Top headlines</span>
+    <span><span id="updated-label" class="mono">—</span> · <button class="refresh-btn" id="refresh-btn">Refresh now</button></span>
+  </div>
+  <div class="upsc-note" id="upsc-note"></div>
+
+  <main class="grid" id="grid"></main>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="settings-panel" id="settings-panel">
+    <div class="settings-header">
+      <h2>Settings</h2>
+      <button id="settings-close" aria-label="Close settings">✕</button>
+    </div>
+
+    <span class="field-label">Auto-refresh</span>
+    <p class="hint" style="margin-top:8px;">News refreshes automatically every hour. Use "Refresh now" on the main page any time you want the latest immediately.</p>
+
+    <div class="divider"></div>
+    <span class="field-label">India Corner</span>
+    <p class="hint" style="margin-top:8px;">The India tab is a curated live search — India-focused current affairs — meant as a quick daily-reading aid.</p>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const API_BASE = 'https://api.currentsapi.services/v1';
+  const API_KEY = 'mGkU32uBlheKXUrwHya7Mw-TumRLuvv2MnOBrqZgKMvn9lK3';
+
+  const CATEGORIES = [
+    { id:'general',       kind:'category', label:'Top',           param:'general',      fallback:['general','top'] },
+    { id:'world',         kind:'category', label:'World',         param:'world',        fallback:['world','politics','society'] },
+    { id:'politics',      kind:'category', label:'Politics',      param:'politics',     fallback:['politics','government','election'] },
+    { id:'business',      kind:'category', label:'Business',      param:'business',     fallback:['business','economy','finance'] },
+    { id:'technology',    kind:'category', label:'Technology',    param:'technology',   fallback:['technology','tech'] },
+    { id:'science',       kind:'category', label:'Science',       param:'science',      fallback:['science'] },
+    { id:'health',        kind:'category', label:'Health',        param:'health',       fallback:['health'] },
+    { id:'sports',        kind:'category', label:'Sports',        param:'sports',       fallback:['sport','sports'] },
+    { id:'entertainment', kind:'category', label:'Entertainment', param:'entertainment',fallback:['entertainment','arts','culture'] },
+    { id:'environment',   kind:'category', label:'Environment',   param:'environment',  fallback:['environment','climate'] },
+    { id:'lifestyle',     kind:'category', label:'Lifestyle',     param:'lifestyle',    fallback:['lifestyle'] },
+    { id:'travel',        kind:'category', label:'Travel',        param:'travel',       fallback:['travel'] },
+    { id:'food',          kind:'category', label:'Food',          param:'food',         fallback:['food'] },
+    { id:'education',     kind:'category', label:'Education',     param:'education',    fallback:['education'] },
+  ];
+
+  const UPSC_TABS = [
+    { id:'upsc-current',   kind:'country',  label:'Current Affairs', country:'in',
+      note:'India-focused current affairs, pulled live and filtered by country — useful as a daily-reading starting point.' },
+  ];
+
+  const LANGUAGES = [
+    { code:'en', label:'English' },
+    { code:'hi', label:'हिन्दी Hindi' },
+    { code:'es', label:'Español' },
+    { code:'fr', label:'Français' },
+    { code:'de', label:'Deutsch' },
+    { code:'ar', label:'العربية Arabic' },
+    { code:'zh', label:'中文 Chinese' },
+    { code:'ja', label:'日本語 Japanese' },
+    { code:'ru', label:'Русский Russian' },
+    { code:'pt', label:'Português' },
+  ];
+
+  const REFRESH_MS = 60 * 60 * 1000;
+  const LANG_STORAGE = 'settings:language';
+
+  let currentLanguage = 'en';
+  let activeView = { kind:'category', id:'general' };
+  let lastAutoRefresh = Date.now();
+  let tickerHasData = false;
+
+  const $ = (sel) => document.querySelector(sel);
+  const grid = $('#grid');
+  const tabsEl = $('#tabs');
+  const tickerTrack = $('#ticker-track');
+  const resultsLabel = $('#results-label');
+  const updatedLabel = $('#updated-label');
+  const toastEl = $('#toast');
+  const upscNote = $('#upsc-note');
+
+  // ---------- storage helpers ----------
+  async function getStoredKey(){
+    return API_KEY;
+  }
+  async function getStoredLanguage(){
+    try{
+      const v = localStorage.getItem(LANG_STORAGE);
+      if (v) return v;
+    } catch(e){ /* storage disabled (private browsing, etc.) */ }
+    return currentLanguage || 'en';
+  }
+  async function setStoredLanguage(lang){
+    currentLanguage = lang;
+    try{ localStorage.setItem(LANG_STORAGE, lang); }
+    catch(e){ console.warn('Could not persist language', e); }
+  }
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(()=> toastEl.classList.remove('show'), 2600);
+  }
+
+  // ---------- time helpers ----------
+  function parsePublished(dateStr){
+    if (!dateStr) return null;
+    const iso = dateStr.trim().replace(' ', 'T').replace(/\s*\+0000$/, 'Z');
+    const d = new Date(iso);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function relativeTime(date){
+    if (!date) return '';
+    const diffSec = Math.max(0, Math.floor((Date.now() - date.getTime())/1000));
+    if (diffSec < 60) return 'Just now';
+    const m = Math.floor(diffSec/60);
+    if (m < 60) return m + 'm ago';
+    const h = Math.floor(m/60);
+    if (h < 24) return h + 'h ago';
+    const d = Math.floor(h/24);
+    return d + 'd ago';
+  }
+
+  // ---------- rendering: tabs ----------
+  function renderTabs(){
+    tabsEl.innerHTML = '';
+    CATEGORIES.forEach(cat=>{
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (activeView.kind==='category' && activeView.id===cat.id ? ' active' : '');
+      btn.textContent = cat.label;
+      btn.addEventListener('click', ()=>{
+        $('#search-input').value = '';
+        loadView({ kind:'category', id:cat.id });
+      });
+      tabsEl.appendChild(btn);
+    });
+
+    const divider = document.createElement('div');
+    divider.className = 'tab-divider';
+    tabsEl.appendChild(divider);
+
+    const label = document.createElement('span');
+    label.className = 'tab-group-label';
+    label.textContent = 'India';
+    tabsEl.appendChild(label);
+
+    UPSC_TABS.forEach(tab=>{
+      const btn = document.createElement('button');
+      btn.className = 'tab upsc' + (activeView.id===tab.id ? ' active' : '');
+      btn.textContent = tab.label;
+      btn.addEventListener('click', ()=>{
+        $('#search-input').value = '';
+        loadView({ kind:tab.kind, id:tab.id });
+      });
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function renderLangSelect(){
+    const sel = $('#lang-select');
+    sel.innerHTML = '';
+    LANGUAGES.forEach(l=>{
+      const opt = document.createElement('option');
+      opt.value = l.code;
+      opt.textContent = l.label;
+      if (l.code === currentLanguage) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  function updateUpscNote(){
+    if (activeView.kind === 'country' || activeView.kind === 'keywords'){
+      const tab = UPSC_TABS.find(t=>t.id===activeView.id);
+      upscNote.textContent = tab ? tab.note : '';
+      upscNote.classList.add('show');
+    } else {
+      upscNote.classList.remove('show');
+    }
+  }
+
+  // ---------- rendering: content ----------
+  function skeletonCards(n){
+    grid.innerHTML = '';
+    for(let i=0;i<n;i++){
+      const c = document.createElement('div');
+      c.className = 'card';
+      c.innerHTML = '<div class="card-image-placeholder skeleton" style="color:transparent;"></div><div class="card-body"><div class="skeleton" style="height:10px;width:40%;border-radius:4px;"></div><div class="skeleton" style="height:18px;width:90%;border-radius:4px;"></div><div class="skeleton" style="height:40px;width:100%;border-radius:4px;"></div></div>';
+      grid.appendChild(c);
+    }
+  }
+
+  function renderState({glyph, title, text}){
+    grid.innerHTML = `
+      <div class="state-box">
+        <div class="state-glyph">${glyph}</div>
+        <div class="state-title">${title}</div>
+        <div class="state-text">${text}</div>
+      </div>`;
+  }
+
+  function categoryMatches(article, fallbackList){
+    const cats = (article.category || []).map(c=>String(c).toLowerCase());
+    return fallbackList.some(f => cats.some(c => c.includes(f)));
+  }
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str || '';
+    return d.innerHTML;
+  }
+
+  function renderArticles(list){
+    grid.innerHTML = '';
+    if (!list.length){
+      renderState({
+        glyph:'“ ”',
+        title:'No stories found',
+        text:'Nothing matched this view right now. Try another tab, another language, or a different keyword.'
+      });
+      return;
+    }
+    list.forEach((a, i)=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = (i * 0.03) + 's';
+      const pub = parsePublished(a.published);
+      const hasImage = a.image && a.image !== 'None';
+      let source = 'Unknown source';
+      if (a.author && a.author !== 'None') source = a.author;
+      else if (a.url) { try { source = new URL(a.url).hostname.replace('www.',''); } catch(e){} }
+      const eyebrow = (a.category && a.category[0]) ? String(a.category[0]).replace(/_/g,' ') : 'news';
+      card.innerHTML = `
+        ${hasImage
+          ? `<img class="card-image" src="${a.image}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card-image-placeholder',textContent:'NW'}))">`
+          : `<div class="card-image-placeholder">NW</div>`}
+        <div class="card-body">
+          <div class="card-eyebrow">${escapeHtml(eyebrow)}</div>
+          <h3 class="card-title">${escapeHtml(a.title || 'Untitled')}</h3>
+          <p class="card-desc">${escapeHtml(a.description || '')}</p>
+          <div class="card-footer">
+            <span class="source">${escapeHtml(source)}</span>
+            <span class="mono">${relativeTime(pub)}</span>
+          </div>
+          <div class="card-footer" style="border-top:none;padding-top:0;">
+            <a href="${a.url}" target="_blank" rel="noopener">Read full story →</a>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderTicker(list){
+    if (!list || !list.length) return;
+    tickerTrack.innerHTML = '';
+    [...list, ...list].forEach(a=>{
+      const span = document.createElement('span');
+      span.textContent = a.title || '';
+      tickerTrack.appendChild(span);
+    });
+  }
+
+  // ---------- API ----------
+  async function apiFetch(url){
+    const res = await fetch(url);
+    if (!res.ok){
+      if (res.status === 401 || res.status === 403) throw new Error('BAD_KEY');
+      if (res.status === 429) throw new Error('RATE_LIMIT');
+      throw new Error('HTTP_' + res.status);
+    }
+    const data = await res.json();
+    if (data.status !== 'ok') throw new Error(data.message || 'API_ERROR');
+    return data.news || [];
+  }
+
+  function buildUrl(view, key, lang){
+    if (view.kind === 'category'){
+      const cat = CATEGORIES.find(c=>c.id===view.id);
+      return `${API_BASE}/latest-news?language=${lang}&category=${encodeURIComponent(cat.param)}&page_size=15&apiKey=${encodeURIComponent(key)}`;
+    }
+    if (view.kind === 'country'){
+      const tab = UPSC_TABS.find(t=>t.id===view.id);
+      return `${API_BASE}/latest-news?language=${lang}&country=${encodeURIComponent(tab.country)}&page_size=15&apiKey=${encodeURIComponent(key)}`;
+    }
+    if (view.kind === 'keywords'){
+      const tab = UPSC_TABS.find(t=>t.id===view.id);
+      return `${API_BASE}/search?keywords=${encodeURIComponent(tab.keywords)}&language=${lang}&page_size=15&apiKey=${encodeURIComponent(key)}`;
+    }
+    if (view.kind === 'search'){
+      return `${API_BASE}/search?keywords=${encodeURIComponent(view.query)}&language=${lang}&page_size=18&apiKey=${encodeURIComponent(key)}`;
+    }
+  }
+
+  function viewResultsLabel(view){
+    if (view.kind === 'category') return CATEGORIES.find(c=>c.id===view.id).label + ' headlines';
+    if (view.kind === 'country' || view.kind === 'keywords') return UPSC_TABS.find(t=>t.id===view.id).label;
+    if (view.kind === 'search') return null; // handled specially with clear button
+  }
+
+  async function loadView(view){
+    activeView = view;
+    renderTabs();
+    updateUpscNote();
+
+    const key = await getStoredKey();
+
+    if (view.kind === 'search'){
+      resultsLabel.innerHTML = `Results for &ldquo;${escapeHtml(view.query)}&rdquo; <button class="clear-search" id="clear-search-btn">Clear</button>`;
+      const cb = $('#clear-search-btn');
+      if (cb) cb.addEventListener('click', ()=>{
+        $('#search-input').value = '';
+        loadView({ kind:'category', id:'general' });
+      });
+    } else {
+      resultsLabel.textContent = viewResultsLabel(view);
+    }
+
+    skeletonCards(6);
+    const lang = await getStoredLanguage();
+
+    try{
+      const url = buildUrl(view, key, lang);
+      let news = await apiFetch(url);
+
+      if (!news.length && view.kind === 'category' && view.id !== 'general'){
+        const cat = CATEGORIES.find(c=>c.id===view.id);
+        const fallbackUrl = `${API_BASE}/latest-news?language=${lang}&page_size=30&apiKey=${encodeURIComponent(key)}`;
+        const fallbackNews = await apiFetch(fallbackUrl);
+        news = fallbackNews.filter(a => categoryMatches(a, cat.fallback));
+      }
+
+      renderArticles(news);
+      markUpdated();
+
+      if (view.kind === 'category' && view.id === 'general'){
+        renderTicker(news.slice(0,10));
+        tickerHasData = true;
+      }
+    } catch(err){
+      handleFetchError(err);
+    }
+  }
+
+  async function refreshTickerIfNeeded(){
+    if (activeView.kind === 'category' && activeView.id === 'general') return; // already fresh from loadView
+    const key = await getStoredKey();
+    if (!key) return;
+    try{
+      const lang = await getStoredLanguage();
+      const url = `${API_BASE}/latest-news?language=${lang}&category=general&page_size=10&apiKey=${encodeURIComponent(key)}`;
+      const news = await apiFetch(url);
+      renderTicker(news);
+      tickerHasData = true;
+    } catch(e){ /* ticker is decorative — fail silently */ }
+  }
+
+  function handleFetchError(err){
+    const msg = err.message || '';
+    if (msg === 'BAD_KEY'){
+      renderState({
+        glyph:'!',
+        title:'Could not connect to the news service',
+        text:'The news service could not be reached right now. Please try refreshing in a moment.'
+      });
+    } else if (msg === 'RATE_LIMIT'){
+      renderState({
+        glyph:'⏳',
+        title:'Daily request limit reached',
+        text:"You've hit the free tier's daily cap on Currents API. It resets in 24 hours — try again later."
+      });
+    } else {
+      renderState({
+        glyph:'✕',
+        title:'Could not load news',
+        text:'Something went wrong reaching the news service. Check your connection and try refreshing.'
+      });
+    }
+  }
+
+  function markUpdated(){
+    updatedLabel.textContent = 'Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  }
+
+  // ---------- refresh / countdown ----------
+  async function refreshNow(resetTimer=true){
+    await loadView(activeView);
+    await refreshTickerIfNeeded();
+    if (resetTimer) lastAutoRefresh = Date.now();
+  }
+
+  function tickCountdown(){
+    const remaining = Math.max(0, REFRESH_MS - (Date.now() - lastAutoRefresh));
+    const totalSec = Math.floor(remaining/1000);
+    const mm = String(Math.floor(totalSec/60)).padStart(2,'0');
+    const ss = String(totalSec%60).padStart(2,'0');
+    $('#countdown-text').textContent = `${mm}:${ss}`;
+    if (remaining <= 0) refreshNow(true);
+  }
+
+  // ---------- settings panel ----------
+  function openSettings(){
+    $('#overlay').classList.add('open');
+    $('#settings-panel').classList.add('open');
+  }
+  function closeSettings(){
+    $('#overlay').classList.remove('open');
+    $('#settings-panel').classList.remove('open');
+  }
+
+  // ---------- wiring ----------
+  function init(){
+    renderTabs();
+
+    $('#settings-btn').addEventListener('click', openSettings);
+    $('#settings-close').addEventListener('click', closeSettings);
+    $('#overlay').addEventListener('click', closeSettings);
+
+    $('#search-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const q = $('#search-input').value.trim();
+      if (q) loadView({ kind:'search', query:q });
+    });
+
+    $('#refresh-btn').addEventListener('click', ()=> refreshNow(true));
+
+    $('#lang-select').addEventListener('change', async (e)=>{
+      await setStoredLanguage(e.target.value);
+      showToast('Language set to ' + e.target.options[e.target.selectedIndex].text);
+      refreshNow(true);
+    });
+
+    getStoredLanguage().then(lang=>{
+      currentLanguage = lang;
+      renderLangSelect();
+    });
+
+    refreshNow(true);
+
+    setInterval(tickCountdown, 1000);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
